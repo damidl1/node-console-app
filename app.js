@@ -12,7 +12,7 @@ if (data) {
    
     const result = transformData(data);
 
-    writeData(outputUrl, result);
+    writeData(outputUrl, JSON.stringify(result));
 }
 
 try {
@@ -56,7 +56,41 @@ function transformData(data) {
     
     const rows = data.split(/\r?\n/);
 
-       //1) creare una costante 'header' con la prima riga che AVRETE TOLTO a rows;
+       const header = rows.shift();
+
+       const headerArray = header.split(',');
+       const students = [];
+
+       for (let i = 0; i < rows.length; i++) {
+        const row = rows[i];
+        
+        const rowArray = row.split(',');
+
+        const student = {};
+        
+        for (let j = 0; j < headerArray.length; j++) {
+          const element = headerArray[j];
+          
+          const value = rowArray[j];
+
+          student[element] = value;
+        }
+        students.push(student);
+       }
+
+       return students;
+    // return JSON.stringify(rows);
+  }
+ 
+
+
+
+
+
+
+
+
+//1) creare una costante 'header' con la prima riga che AVRETE TOLTO a rows;
     //2) create una constante 'headerArray' splittando la stringa header sulle virgole;
     //3) crate un array chiamato students (vuoto);
     //4) ciclate sull'array rows;
@@ -72,23 +106,6 @@ function transformData(data) {
     //A1)tipizzare i valori nel json
     //A2)aggiungere un parametro alla applicazione che mi permette di indicare il carattere divisorio
     //A3)gestire la possibilità che nel csv ci siano degli spazi non voluti 
-
-
-
-
-
-
-
-
-
-
-    return JSON.stringify(rows);
-  }
-
-
-
-
-
 
 
 

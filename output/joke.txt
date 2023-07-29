@@ -4,3 +4,5 @@ ares,fiumicelli,1993,false
 luca,verduci,1999,false
 stefania,ghergut,1996,false
 
+
+pippo,pluto,paperino
