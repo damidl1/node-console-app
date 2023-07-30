@@ -71,14 +71,30 @@ function transformData(data) {
         for (let j = 0; j < headerArray.length; j++) {
           const element = headerArray[j];
           
-          const value = rowArray[j];
+          let value = rowArray[j];
 
+          
+         if (value !== undefined) {
+         value = value.trim();
+         }
+
+          // student[element] = value;
+
+          if (!isNaN(value)) {
+            value = parseFloat(value);
+          } else if (value === 'true' || value === 'false'){
+            value = value === 'true';
+          }
           student[element] = value;
         }
         students.push(student);
        }
+       console.log(header);
+       console.log(headerArray);
+       console.log(students);
+       return JSON.stringify(students);
 
-       return students;
+
     // return JSON.stringify(rows);
   }
  
