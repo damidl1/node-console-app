@@ -65,7 +65,7 @@ function transformData(data) {
         const row = rows[i];
         
         const rowArray = row.split(',');
-
+        console.log('rowArray:', + rowArray)
         const student = {};
         
         for (let j = 0; j < headerArray.length; j++) {
