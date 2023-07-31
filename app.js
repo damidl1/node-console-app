@@ -15,22 +15,22 @@ if (data) {
     writeData(outputUrl, JSON.stringify(result));
 }
 
-try {
-  data = fs.readFileSync("./input/students.csv", "utf8");
-} catch (err) {
-  console.error(err.message);
-}
+// try {
+//   data = fs.readFileSync("./input/students.csv", "utf8");
+// } catch (err) {
+//   console.error(err.message);
+// }
 
-if (data) {
-  data = data + "\npippo,pluto,paperino"
+// if (data) {
+//   data = data + "\npippo,pluto,paperino"
 
-  try {
-    fs.writeFileSync('./output/joke.txt', data);
+//   try {
+//     fs.writeFileSync('./output/joke.txt', data);
     
-  } catch (err) {
-    console.error(err.message);
-  }
-}
+//   } catch (err) {
+//     console.error(err.message);
+//   }
+// }
 
 
 function readFile(url) {
@@ -61,29 +61,28 @@ function transformData(data) {
        const headerArray = header.split(',');
        const students = [];
 
-       for (let i = 0; i < rows.length; i++) {
-        const row = rows[i];
+       for (const row of rows) {
+      
         
         const rowArray = row.split(',');
         console.log('rowArray:', + rowArray)
+        
         const student = {};
         
         for (let j = 0; j < headerArray.length; j++) {
-          const element = headerArray[j];
+          const element = headerArray[j].trim();
           
-          let value = rowArray[j];
+          let value = rowArray[j].trim();
 
-          
-         if (value !== undefined) {
-         value = value.trim();
-         }
 
           // student[element] = value;
 
           if (!isNaN(value)) {
-            value = parseFloat(value);
-          } else if (value === 'true' || value === 'false'){
-            value = value === 'true';
+            value = Number(value);
+          } else if (value.toLowerCase() === 'true'){
+            value = true;
+          } else if (value.toLowerCase() === 'false'){
+            value = false;
           }
           student[element] = value;
         }
@@ -92,7 +91,7 @@ function transformData(data) {
        console.log(header);
        console.log(headerArray);
        console.log(students);
-       return JSON.stringify(students);
+       return students;
 
 
     // return JSON.stringify(rows);
